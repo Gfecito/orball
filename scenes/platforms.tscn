@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://nngpm3fde2of"]
+
+[ext_resource type="PackedScene" uid="uid://brs1c8g1a7sm0" path="res://scenes/platform.tscn" id="1_njhqw"]
+
+[node name="Platforms" type="Node2D"]
+
+[node name="PlatformHigh" parent="." instance=ExtResource("1_njhqw")]
+position = Vector2(-355, -490)
+scale = Vector2(0.2, 0.3)
+
+[node name="PlatformMid" parent="." instance=ExtResource("1_njhqw")]
+position = Vector2(-81, -365)
+scale = Vector2(0.2, 0.3)
+
+[node name="PlatformLow" parent="." instance=ExtResource("1_njhqw")]
+position = Vector2(325, -184)
+scale = Vector2(0.5, 0.5)

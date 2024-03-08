@@ -1,21 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cw6hnyyhewvfm"]
+[gd_scene load_steps=3 format=3 uid="uid://cw6hnyyhewvfm"]
 
-[ext_resource type="PackedScene" uid="uid://brs1c8g1a7sm0" path="res://scenes/platform.tscn" id="2_3dnst"]
+[ext_resource type="PackedScene" uid="uid://bfb24nm6ufxi8" path="res://scenes/floor.tscn" id="1_wfefx"]
+[ext_resource type="PackedScene" uid="uid://nngpm3fde2of" path="res://scenes/platforms.tscn" id="2_ot2ds"]
 
 [node name="MapSector" type="Node2D"]
 
-[node name="Platform" parent="." instance=ExtResource("2_3dnst")]
-position = Vector2(2.08165e-12, 595)
-scale = Vector2(1.15, 8)
+[node name="Floor" parent="." instance=ExtResource("1_wfefx")]
+position = Vector2(13, 598)
 
-[node name="Platform2" parent="." instance=ExtResource("2_3dnst")]
-position = Vector2(325, -184)
-scale = Vector2(0.5, 0.5)
-
-[node name="Platform3" parent="." instance=ExtResource("2_3dnst")]
-position = Vector2(-81, -365)
-scale = Vector2(0.2, 0.3)
-
-[node name="Platform4" parent="." instance=ExtResource("2_3dnst")]
-position = Vector2(-372, -468)
-scale = Vector2(0.2, 0.3)
+[node name="Platforms" parent="." instance=ExtResource("2_ot2ds")]
+position = Vector2(-1, 12)
