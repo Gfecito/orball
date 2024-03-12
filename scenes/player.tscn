@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=8 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_58k0k"]
 [ext_resource type="Texture2D" uid="uid://d1gqu5uyffcln" path="res://images/kirby.png" id="2_ub1aq"]
 [ext_resource type="AudioStream" uid="uid://bsrb6i4tsxgwu" path="res://audio/Jump 1.mp3" id="3_1ddh6"]
 [ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://audio/Jump 2.mp3" id="4_qn8du"]
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://audio/Jump 3.mp3" id="5_a3fxr"]
+[ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="6_dwdy3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
 radius = 38.5714
@@ -14,6 +15,13 @@ height = 91.4286
 scale = Vector2(0.7, 0.7)
 script = ExtResource("1_58k0k")
 jump_velocity = -900.0
+
+[node name="VolumeSlider" parent="." instance=ExtResource("6_dwdy3")]
+offset_left = 783.0
+offset_top = -431.0
+offset_right = 805.0
+offset_bottom = -258.0
+bus_name = "Master"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-5.60892e-07, -48.5714)
@@ -29,13 +37,15 @@ shape = SubResource("CapsuleShape2D_4ojyc")
 [node name="Jump1" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(460, 340)
 stream = ExtResource("3_1ddh6")
+bus = &"SFX"
 
 [node name="Jump2" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-495.714, -94.2857)
 stream = ExtResource("4_qn8du")
-volume_db = 15.0
+bus = &"SFX"
 
 [node name="Jump3" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(430, -301.429)
 stream = ExtResource("5_a3fxr")
-volume_db = 18.0
+volume_db = 5.0
+bus = &"SFX"

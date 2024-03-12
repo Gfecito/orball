@@ -8,12 +8,13 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_ta1dl")
 
-[node name="Player" parent="." instance=ExtResource("1_23jjp")]
+[node name="MapSector" parent="." instance=ExtResource("2_qc6k7")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="MapSector" parent="." instance=ExtResource("2_qc6k7")]
+[node name="Player" parent="." instance=ExtResource("1_23jjp")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_dn45n")
 autoplay = true
+bus = &"Music"
