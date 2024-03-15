@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=9 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_58k0k"]
 [ext_resource type="Texture2D" uid="uid://d1gqu5uyffcln" path="res://images/kirby.png" id="2_ub1aq"]
 [ext_resource type="AudioStream" uid="uid://bsrb6i4tsxgwu" path="res://audio/Jump 1.mp3" id="3_1ddh6"]
+[ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
 [ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://audio/Jump 2.mp3" id="4_qn8du"]
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://audio/Jump 3.mp3" id="5_a3fxr"]
 [ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="6_dwdy3"]
@@ -16,11 +17,19 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("1_58k0k")
 jump_velocity = -900.0
 
-[node name="VolumeSlider" parent="." instance=ExtResource("6_dwdy3")]
-offset_left = 783.0
-offset_top = -431.0
-offset_right = 805.0
-offset_bottom = -258.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 20.0
+offset_bottom = 189.0
+grow_horizontal = 0
+
+[node name="VolumeSlider" parent="CanvasLayer/HBoxContainer" instance=ExtResource("6_dwdy3")]
+layout_mode = 2
 bus_name = "Master"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -32,7 +41,7 @@ texture = ExtResource("2_ub1aq")
 position = Vector2(1.42857, -48.5714)
 shape = SubResource("CapsuleShape2D_4ojyc")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="DynamicCamera" parent="." instance=ExtResource("4_eosea")]
 
 [node name="Jump1" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(460, 340)
