@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfyvpcm6htcys"]
+[gd_scene load_steps=6 format=3 uid="uid://dfyvpcm6htcys"]
 
 [ext_resource type="PackedScene" uid="uid://kl43cai7r6ss" path="res://scenes/player.tscn" id="1_23jjp"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_ta1dl"]
 [ext_resource type="PackedScene" uid="uid://cw6hnyyhewvfm" path="res://scenes/map_sector.tscn" id="2_qc6k7"]
 [ext_resource type="AudioStream" uid="uid://ds5ab311fh8r3" path="res://audio/music.mp3" id="4_dn45n"]
+[ext_resource type="Texture2D" uid="uid://bpqfti867uhr" path="res://images/placeholder_background.jpg" id="5_wsgw7"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ta1dl")
@@ -18,3 +19,14 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 stream = ExtResource("4_dn45n")
 autoplay = true
 bus = &"Music"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_enabled = true
+follow_viewport_scale = 0.05
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(5580, -2930)
+scale = Vector2(10, 10)
+texture = ExtResource("5_wsgw7")

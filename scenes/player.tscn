@@ -1,16 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=10 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_58k0k"]
-[ext_resource type="Texture2D" uid="uid://d1gqu5uyffcln" path="res://images/kirby.png" id="2_ub1aq"]
 [ext_resource type="AudioStream" uid="uid://bsrb6i4tsxgwu" path="res://audio/Jump 1.mp3" id="3_1ddh6"]
+[ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
+[ext_resource type="Script" path="res://scripts/animated_player.gd" id="4_bg6cw"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
 [ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://audio/Jump 2.mp3" id="4_qn8du"]
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://audio/Jump 3.mp3" id="5_a3fxr"]
 [ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="6_dwdy3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
-radius = 38.5714
-height = 91.4286
+radius = 32.8571
+height = 71.4286
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.7, 0.7)
@@ -20,7 +21,7 @@ jump_velocity = -900.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -42.0
@@ -32,13 +33,16 @@ grow_horizontal = 0
 layout_mode = 2
 bus_name = "Master"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-5.60892e-07, -48.5714)
-scale = Vector2(0.177384, 0.196429)
-texture = ExtResource("2_ub1aq")
+[node name="animated_player" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.42857, -57.1428)
+scale = Vector2(3.52679, 3.57143)
+sprite_frames = ExtResource("3_rmlqg")
+autoplay = "default"
+script = ExtResource("4_bg6cw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.42857, -48.5714)
+position = Vector2(1.42857, -32.8571)
+rotation = 4.71239
 shape = SubResource("CapsuleShape2D_4ojyc")
 
 [node name="DynamicCamera" parent="." instance=ExtResource("4_eosea")]

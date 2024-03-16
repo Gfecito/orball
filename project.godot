@@ -15,12 +15,21 @@ run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[aseprite_importers]
+
+aseprite_executable_path="/Users/santi/Library/Application Support/Steam/steamapps/common/Aseprite/Aseprite.app/Contents/MacOS/aseprite"
+
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=450
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/transparent_background=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
 
 [input]
 

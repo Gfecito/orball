@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://brs1c8g1a7sm0"]
+[gd_scene load_steps=4 format=3 uid="uid://brs1c8g1a7sm0"]
+
+[ext_resource type="Texture2D" uid="uid://31e8tghuupvl" path="res://images/placeholder_platform.png" id="1_242o8"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_gtdbm"]
 size = Vector2(1000, 150)
@@ -9,9 +11,15 @@ size = Vector2(1001, 150)
 [node name="Platform" type="StaticBody2D"]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-modulate = Color(0.384314, 0, 0.172549, 1)
+visible = false
+modulate = Color(0.384314, 0, 0.172549, 0)
 mesh = SubResource("QuadMesh_gtdbm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_r15me")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 7.5)
+scale = Vector2(2.40625, 0.597561)
+texture = ExtResource("1_242o8")
