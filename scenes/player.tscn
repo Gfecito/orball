@@ -1,13 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=9 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_58k0k"]
-[ext_resource type="AudioStream" uid="uid://bsrb6i4tsxgwu" path="res://audio/Jump 1.mp3" id="3_1ddh6"]
 [ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
 [ext_resource type="Script" path="res://scripts/animated_player.gd" id="4_bg6cw"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
-[ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://audio/Jump 2.mp3" id="4_qn8du"]
-[ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://audio/Jump 3.mp3" id="5_a3fxr"]
 [ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="6_dwdy3"]
+[ext_resource type="AudioStream" uid="uid://c5xcbqpjh8jfy" path="res://audio/Jump 1.1 Reverse.wav" id="6_y20vh"]
+[ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="7_pflkh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
 radius = 32.8571
@@ -47,18 +46,14 @@ shape = SubResource("CapsuleShape2D_4ojyc")
 
 [node name="DynamicCamera" parent="." instance=ExtResource("4_eosea")]
 
-[node name="Jump1" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(460, 340)
-stream = ExtResource("3_1ddh6")
-bus = &"SFX"
+[node name="Landing" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-2.38419e-07, -21.4286)
+scale = Vector2(1, 1)
+stream = ExtResource("6_y20vh")
+volume_db = 10.0
 
-[node name="Jump2" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(-495.714, -94.2857)
-stream = ExtResource("4_qn8du")
-bus = &"SFX"
-
-[node name="Jump3" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(430, -301.429)
-stream = ExtResource("5_a3fxr")
-volume_db = 5.0
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-2.38419e-07, -21.4286)
+stream = ExtResource("7_pflkh")
+volume_db = 10.0
 bus = &"SFX"

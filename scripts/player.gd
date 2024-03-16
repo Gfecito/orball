@@ -10,12 +10,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")*2
 var can_double_jump = false	
 
 func permit_jump():
-	var POSITIONAL_JUMP_SOUND_EFFECTS = [$"Jump1", $"Jump2"]
-
 	var jumped = Input.is_action_just_pressed("jump")
 	if jumped:
-		var random_sound_effect = POSITIONAL_JUMP_SOUND_EFFECTS.pick_random()
-		random_sound_effect.play()
+		$"Jump".play()
 		# Add jump sound
 		velocity.y = jump_velocity
 	return jumped
@@ -25,7 +22,7 @@ func _physics_process(delta):
 		permit_jump()
 	if is_on_floor():
 		if !can_double_jump:
-			$"Jump3".play() # Just hit the ground
+			$"Landing".play() # Just hit the ground
 		can_double_jump = true
 		permit_jump()
 	else:
