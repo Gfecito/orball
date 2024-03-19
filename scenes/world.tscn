@@ -24,6 +24,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 stream = ExtResource("4_xtei2")
 volume_db = -16.137
 autoplay = true
+mix_target = 1
 bus = &"Music"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
