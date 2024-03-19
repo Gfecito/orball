@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhjt6knht4mta"]
+
+[ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="1_0cc52"]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 413.0
+offset_top = 220.0
+offset_right = 657.0
+offset_bottom = 271.0
+text = "MASTER VOLUME"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 694.0
+offset_top = 219.0
+offset_right = 938.0
+offset_bottom = 270.0
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 940.0
+offset_top = 216.0
+offset_right = 1184.0
+offset_bottom = 267.0
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 500.0
+offset_top = -164.5
+offset_right = 542.0
+offset_bottom = 4.5
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="MasterVolumeSlider" parent="MasterVolumeContainer" instance=ExtResource("1_0cc52")]
+layout_mode = 2
+bus_name = "Master"
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -164.5
+offset_right = 16.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="SFXVolumeSlider" parent="SFXVolumeContainer" instance=ExtResource("1_0cc52")]
+layout_mode = 2
+bus_name = "SFX"
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -572.0
+offset_top = -164.5
+offset_right = -500.0
+offset_bottom = 4.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="MusicVolumeSlider" parent="MusicVolumeContainer" instance=ExtResource("1_0cc52")]
+layout_mode = 2
+bus_name = "Music"

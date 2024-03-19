@@ -16,6 +16,8 @@ func add_platforms(_position: Vector2):
 
 # Called when the node enters the ground_sector tree for the first time.
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# Play music
 	# Do this on signal from player
 	for sector_position in range(1,10):
@@ -28,4 +30,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = !get_tree().paused
+
+

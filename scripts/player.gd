@@ -8,6 +8,9 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")*2
 
 var can_double_jump = false	
+func _ready():
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
 
 func permit_jump():
 	var jumped = Input.is_action_just_pressed("jump")
