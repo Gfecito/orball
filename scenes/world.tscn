@@ -6,16 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://cw6hnyyhewvfm" path="res://scenes/map_sector.tscn" id="2_qc6k7"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="3_tdisq"]
 [ext_resource type="AudioStream" uid="uid://dcupiu1yrhtc3" path="res://audio/background_music.wav" id="4_xtei2"]
-[ext_resource type="Texture2D" uid="uid://bpqfti867uhr" path="res://images/placeholder_background.jpg" id="5_wsgw7"]
+[ext_resource type="PackedScene" uid="uid://den0ci8bpbe2" path="res://scenes/background.tscn" id="7_8bh6s"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ta1dl")
 
-[node name="GUI" parent="." instance=ExtResource("2_gidta")]
-script = ExtResource("3_tdisq")
-
 [node name="MapSector" parent="." instance=ExtResource("2_qc6k7")]
 position = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="GUI" parent="." instance=ExtResource("2_gidta")]
+script = ExtResource("3_tdisq")
 
 [node name="Player" parent="." instance=ExtResource("1_23jjp")]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -27,13 +27,4 @@ autoplay = true
 mix_target = 1
 bus = &"Music"
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-follow_viewport_enabled = true
-follow_viewport_scale = 0.05
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(5580, -2930)
-scale = Vector2(10, 10)
-texture = ExtResource("5_wsgw7")
+[node name="Background" parent="." instance=ExtResource("7_8bh6s")]

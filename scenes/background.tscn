@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://den0ci8bpbe2"]
+
+[ext_resource type="Texture2D" uid="uid://bpqfti867uhr" path="res://images/placeholder_background.jpg" id="1_fji84"]
+[ext_resource type="Texture2D" uid="uid://m2146e1cgl4i" path="res://images/Forest tileset/Tile-set/Trunks/Trunk 05.png" id="2_xuxg3"]
+
+[node name="Background" type="ParallaxBackground"]
+follow_viewport_enabled = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+scale = Vector2(0.5, 0.5)
+motion_scale = Vector2(0.075, 0.075)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(5580, -2930)
+scale = Vector2(10, 10)
+texture = ExtResource("1_fji84")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+motion_scale = Vector2(2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(-8.49998, -551.7)
+scale = Vector2(4.25987, 3.98312)
+texture = ExtResource("2_xuxg3")
