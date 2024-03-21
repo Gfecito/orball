@@ -19,10 +19,10 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Play music
 	# Do this on signal from player
-	for sector_position in range(1,10):
+	for sector_position in range(-10,10):
 		var x = 1150 * sector_position
 		add_sector(Vector2(x,0))
-		for platform_position in range(1,10):
+		for platform_position in range(1,100):
 			var y = -600 * platform_position
 			add_platforms(Vector2(x, y))
 
@@ -31,5 +31,3 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
-
-
