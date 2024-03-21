@@ -1,31 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhjt6knht4mta"]
+[gd_scene load_steps=3 format=3 uid="uid://bhjt6knht4mta"]
 
 [ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="1_0cc52"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w416v"]
+font_size = 25
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_offset = Vector2(2, 4)
 
 [node name="GUI" type="CanvasLayer"]
 
 [node name="Label" type="Label" parent="."]
+top_level = true
+layout_direction = 2
 offset_left = 413.0
-offset_top = 220.0
+offset_top = 215.0
 offset_right = 657.0
-offset_bottom = 271.0
+offset_bottom = 266.0
 text = "MASTER VOLUME"
+label_settings = SubResource("LabelSettings_w416v")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
+top_level = true
+layout_direction = 2
 offset_left = 694.0
-offset_top = 219.0
+offset_top = 215.0
 offset_right = 938.0
-offset_bottom = 270.0
+offset_bottom = 266.0
 text = "SFX"
+label_settings = SubResource("LabelSettings_w416v")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="."]
-offset_left = 940.0
-offset_top = 216.0
-offset_right = 1184.0
-offset_bottom = 267.0
+top_level = true
+layout_direction = 2
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -661.0
+offset_top = -235.0
+offset_right = -417.0
+offset_bottom = -184.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "MUSIC"
+label_settings = SubResource("LabelSettings_w416v")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MasterVolumeContainer" type="HBoxContainer" parent="."]
 anchors_preset = 4

@@ -1,12 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://di1a2ebv4shd4"]
+[gd_scene load_steps=4 format=3 uid="uid://di1a2ebv4shd4"]
 
 [ext_resource type="Script" path="res://scripts/volume_slider.gd" id="1_i4p1a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ga014"]
+border_width_left = 5
+border_width_right = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t043c"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 1, 1, 1)
 
 [node name="VolumeSlider" type="VSlider"]
 offset_top = -189.0
 offset_right = 30.0
 offset_bottom = 8.0
 scale = Vector2(2, 2)
+theme_override_styles/slider = SubResource("StyleBoxFlat_ga014")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_t043c")
 max_value = 1.0
 step = 0.001
 script = ExtResource("1_i4p1a")
