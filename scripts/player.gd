@@ -59,8 +59,18 @@ func handle_movement(delta):
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().name == "Squirrel":
+			print("I collided with ", collision.get_collider().name)
+			hide()
+			await get_tree().create_timer(2.0).timeout
+			get_tree().reload_current_scene()
 
 # func _physics_process(delta):
 func _process(delta):
 	handle_movement(delta)
 	
+#func _on_body_entered(body):
+	#hide() # Owies we vanish on hit!
+	# hit.emit()

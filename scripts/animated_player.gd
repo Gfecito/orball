@@ -10,19 +10,11 @@ func _ready():
 	# TODO: Is this needed?
 	process_mode = Node.PROCESS_MODE_PAUSABLE 
 
-func determine_direction():
-	var player_position = player.position
-	var this_position = position
-	if player_position.x == this_position.x:
-		return 0
-	if player_position.x > this_position.x:
-		return 1
-	else:
-		return -1
+
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	var direction = determine_direction()
+	var direction = Input.get_axis("move_left", "move_right")
 	if direction != 0:
 		scale.x = abs(scale.x) * direction
 	

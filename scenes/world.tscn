@@ -23,7 +23,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 jump_velocity = -1000.0
 
 [node name="Squirrel" parent="." instance=ExtResource("8_sj7mc")]
-position = Vector2(-165, 2.08165e-12)
+position = Vector2(-265, 2.08165e-12)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_xtei2")
