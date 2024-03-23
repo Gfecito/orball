@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfl62p6qgiqb8"]
+
+[ext_resource type="Script" path="res://scripts/squirrel_enemy.gd" id="1_ynq2j"]
+[ext_resource type="SpriteFrames" uid="uid://bqmxchdv5nv47" path="res://aseprites/Squirrel idle.aseprite" id="2_dj4pe"]
+[ext_resource type="Script" path="res://scripts/animated_player.gd" id="3_ibdub"]
+[ext_resource type="AudioStream" uid="uid://c5xcbqpjh8jfy" path="res://audio/Jump 1.1 Reverse.wav" id="5_h84xw"]
+[ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="6_ch6au"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
+radius = 34.2857
+height = 80.0
+
+[node name="Squirrel" type="CharacterBody2D"]
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_ynq2j")
+
+[node name="animated_player" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.19209e-07, -37.1429)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_dj4pe")
+autoplay = "default"
+script = ExtResource("3_ibdub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.85714, -34.2857)
+rotation = 4.71239
+shape = SubResource("CapsuleShape2D_4ojyc")
+
+[node name="Landing" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-2.38419e-07, -21.4286)
+stream = ExtResource("5_h84xw")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-2.38419e-07, -21.4286)
+stream = ExtResource("6_ch6au")
+volume_db = 10.0
+bus = &"SFX"

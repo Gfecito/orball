@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfyvpcm6htcys"]
+[gd_scene load_steps=9 format=3 uid="uid://dfyvpcm6htcys"]
 
 [ext_resource type="PackedScene" uid="uid://kl43cai7r6ss" path="res://scenes/player.tscn" id="1_23jjp"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_ta1dl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/gui.gd" id="3_tdisq"]
 [ext_resource type="AudioStream" uid="uid://dcupiu1yrhtc3" path="res://audio/background_music.wav" id="4_xtei2"]
 [ext_resource type="PackedScene" uid="uid://den0ci8bpbe2" path="res://scenes/background.tscn" id="7_8bh6s"]
+[ext_resource type="PackedScene" uid="uid://cfl62p6qgiqb8" path="res://scenes/squirrel_enemy.tscn" id="8_sj7mc"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ta1dl")
@@ -19,6 +20,7 @@ script = ExtResource("3_tdisq")
 
 [node name="Player" parent="." instance=ExtResource("1_23jjp")]
 position = Vector2(2.08165e-12, 2.08165e-12)
+jump_velocity = -1000.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_xtei2")
@@ -28,3 +30,6 @@ mix_target = 1
 bus = &"Music"
 
 [node name="Background" parent="." instance=ExtResource("7_8bh6s")]
+
+[node name="Squirrel" parent="." instance=ExtResource("8_sj7mc")]
+position = Vector2(-165, 2.08165e-12)

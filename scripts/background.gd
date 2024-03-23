@@ -7,7 +7,6 @@ func add_background_sector(_position: Vector2):
 	var instance = trees_sector.instantiate()
 	$"Foreground".add_child(instance)
 	instance.set_global_position(_position)
-	print("Sector:" + str(_position))
 
 
 # Called when the node enters the trees_sector tree for the first time.

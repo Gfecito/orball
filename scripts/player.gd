@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var movement_speed = 300.0
-@export var jump_velocity = -400.0
+@export var jump_velocity = -1000.0
 
 
 # There must be a better way to pick this 
@@ -29,7 +29,6 @@ func permit_jump():
 		$"Jump".play()
 		# Add jump sound
 		velocity.y = jump_velocity
-		print("Player:" + str(position) )
 
 	return jumped
 
@@ -56,7 +55,6 @@ func handle_movement(delta):
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * movement_speed
-		print("Player:" + str(position) )
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
