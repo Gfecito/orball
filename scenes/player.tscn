@@ -8,27 +8,27 @@
 [ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="7_pflkh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
-radius = 32.8571
-height = 71.4286
+radius = 8.57143
+height = 20.0
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(0.7, 0.7)
 script = ExtResource("1_58k0k")
 jump_velocity = -900.0
 
 [node name="animated_player" type="AnimatedSprite2D" parent="."]
-position = Vector2(1.42857, -57.1428)
-scale = Vector2(3.52679, 3.57143)
+position = Vector2(0, -17.1429)
+scale = Vector2(1, 1.012)
 sprite_frames = ExtResource("3_rmlqg")
 autoplay = "default"
 script = ExtResource("4_bg6cw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.42857, -32.8571)
+position = Vector2(0, -10)
 rotation = 4.71239
 shape = SubResource("CapsuleShape2D_4ojyc")
 
 [node name="DynamicCamera" parent="." instance=ExtResource("4_eosea")]
+zoom = Vector2(2, 2)
 
 [node name="Landing" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2.38419e-07, -21.4286)
