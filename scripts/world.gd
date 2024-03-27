@@ -31,3 +31,19 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
+
+
+func _on_gui_pause():
+	get_tree().paused = !get_tree().paused
+
+
+func _on_gui_reset():
+	reset()
+
+func reset():
+	await get_tree().create_timer(2.0).timeout
+	get_tree().reload_current_scene()
+
+
+func _on_player_player_died():
+	reset()

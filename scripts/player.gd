@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal player_died
 
 @export var movement_speed = 300.0
 @export var jump_velocity = -1000.0
@@ -64,8 +65,7 @@ func handle_movement(delta):
 		if collision.get_collider().name == "Squirrel":
 			print("I collided with ", collision.get_collider().name)
 			hide()
-			await get_tree().create_timer(2.0).timeout
-			get_tree().reload_current_scene()
+			emit_signal("player_died")
 
 # func _physics_process(delta):
 func _process(delta):
