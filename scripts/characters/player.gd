@@ -69,16 +69,42 @@ func move_horizontally(delta) -> void:
 func handle_movement(delta) -> void:
 	move_vertically(delta)
 	move_horizontally(delta)
+	if Input.is_action_just_pressed("shed"):
+		shed(20)
 	
 	detect_and_log_collisions()
+
+func eat(victim):
+	print("I EAT RIGHT NOW")
+	$"Eat".stop()
+	$"Eat".play()
+	var camera = $"DynamicCamera"
+	# When this gets negative the camera flips!
+	# Lets multiply
+	camera.set_zoom(camera.get_zoom() - Vector2(0.1, 0.1))
+	apply_scale(Vector2(1.1,1.1))
+	victim.queue_free()
+
+func shed(percentage: float):
+	print("I SHED RIGHT NOW")
+	$"Shed".stop()
+	$"Shed".play()
+	var to_keep = 1.0-(percentage/100)
+	var camera = $"DynamicCamera"
+	camera.set_zoom(camera.get_zoom() + Vector2(0.25, 0.25))
+	apply_scale(Vector2(to_keep,to_keep))
+
 
 func detect_and_log_collisions() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().name == "Squirrel":
 			#print("I collided with ", collision.get_collider().name)
-			hide()
-			emit_signal("player_died")
+			if Input.is_action_pressed("eat"):
+				eat(collision.get_collider())
+			else:
+				hide()
+				emit_signal("player_died")
 
 func _process(delta):
 	handle_movement(delta)

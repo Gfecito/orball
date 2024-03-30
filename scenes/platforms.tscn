@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nngpm3fde2of"]
+[gd_scene load_steps=3 format=3 uid="uid://nngpm3fde2of"]
 
 [ext_resource type="PackedScene" uid="uid://brs1c8g1a7sm0" path="res://scenes/platform.tscn" id="1_njhqw"]
+[ext_resource type="PackedScene" uid="uid://cfl62p6qgiqb8" path="res://scenes/squirrel_enemy.tscn" id="2_vtofl"]
 
 [node name="Platforms" type="Node2D"]
 
@@ -15,3 +16,6 @@ scale = Vector2(0.2, 0.3)
 [node name="PlatformLow" parent="." instance=ExtResource("1_njhqw")]
 position = Vector2(325, -184)
 scale = Vector2(0.5, 0.5)
+
+[node name="Squirrel" parent="." instance=ExtResource("2_vtofl")]
+position = Vector2(-80, -393)
