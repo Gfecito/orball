@@ -1,0 +1,28 @@
+extends Node
+
+signal player_died
+
+signal pause
+signal reset
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_player_player_died():
+	emit_signal("player_died")
+
+
+func _on_pause():
+	emit_signal("pause")
+
+
+func _on_reset():
+	emit_signal("reset")

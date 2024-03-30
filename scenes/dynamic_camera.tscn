@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dvqvcx8k5kyvi"]
 
-[ext_resource type="Script" path="res://scripts/dynamic_camera.gd" id="1_kqmdr"]
+[ext_resource type="Script" path="res://scripts/ui_and_ux/dynamic_camera.gd" id="1_kqmdr"]
 
 [node name="DynamicCamera" type="Camera2D"]
 script = ExtResource("1_kqmdr")

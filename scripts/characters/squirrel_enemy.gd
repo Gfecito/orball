@@ -7,23 +7,24 @@ var player
 func _ready():
 	var world_node = get_tree().root.get_child(0)
 	player = world_node.get_node("Player")
-	world_node.print_tree_pretty()
-	# TODO: Is this needed?
+
+	# This can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE 
 
-func determine_direction():
+func determine_direction() -> int:
 	var player_position = player.position
 	var this_position = position
-	if player_position.x == this_position.x:
+	if abs(player_position.x - this_position.x) < 5:
 		return 0
 	if player_position.x > this_position.x:
 		return 1
 	else:
 		return -1
 
-func handle_movement(_delta):
+func handle_movement(_delta) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var direction = determine_direction()
+	
 	if direction:
 		velocity.x = direction * movement_speed
 	else:
@@ -31,7 +32,5 @@ func handle_movement(_delta):
 	
 	move_and_slide()
 
-# func _physics_process(delta):
 func _process(delta):
 	handle_movement(delta)
-	

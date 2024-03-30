@@ -22,7 +22,7 @@ func _process(_delta):
 	pass
 
 
-func _on_volume_changed(delta: float):
+func _on_volume_changed(delta: float) -> void:
 	AudioServer.set_bus_volume_db(
 		bus_index,
 		linear_to_db(delta)

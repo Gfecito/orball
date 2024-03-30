@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 signal player_died
+signal jump
+signal grounded
 
 @export var movement_speed = 300.0
 @export var jump_velocity = -1000.0
@@ -8,50 +10,53 @@ signal player_died
 
 # There must be a better way to pick this 
 # than just by feeling, but its fine
-const DOWNWARD_SPEED_THRESHOLD = 160
+const DOWNWARD_SPEED_THRESHOLD = 80
+const MAX_CONSECUTIVE_JUMPS = 3
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var downward_speed = null
-var can_double_jump = null
+var downward_speed = 0
+var jump_counter = MAX_CONSECUTIVE_JUMPS
 
 func _ready():
-	can_double_jump = true
-	downward_speed = 0
-	process_mode = Node.PROCESS_MODE_PAUSABLE
+	# This can be paused.
+	process_mode = Node.PROCESS_MODE_PAUSABLE 
 
-
-func permit_jump():
-	var jumped = Input.is_action_just_pressed("jump")
-	if jumped:
+func _on_jump() -> void:
+	if jump_counter > 0:
 		$"Jump".stop()		
 		$"Jump".play()
-		# Add jump sound
 		velocity.y = jump_velocity
+		jump_counter -= 1
 
-	return jumped
+func _on_grounded() -> void:
+	jump_counter = MAX_CONSECUTIVE_JUMPS
 
-func allow_levitating_under_ground_level():
+func check_loud_landing(delta) -> void:
+	if downward_speed > gravity * delta * DOWNWARD_SPEED_THRESHOLD:
+			$"Landing".stop()
+			$"Landing".play()
+
+func allow_levitating_under_ground_level() -> void:
 	if position.y  > 100:
-		permit_jump()
+		_on_grounded()
 
-func handle_movement(delta):
+func move_vertically(delta) -> void:
+	if Input.is_action_just_pressed("jump"):
+		emit_signal("jump")
+
 	allow_levitating_under_ground_level()
 	if is_on_floor():
-		if downward_speed > gravity * delta * DOWNWARD_SPEED_THRESHOLD:
-			$"Landing".stop()
-			$"Landing".play() # Just hit the ground
-		can_double_jump = true
-		permit_jump()
+		check_loud_landing(delta)
+		emit_signal("grounded")
 	else:
-		if can_double_jump:
-			can_double_jump = !permit_jump()
-		# TODO: Modify project's gravity instead of this hack
-		velocity.y += gravity * delta * 2 
+		velocity.y += gravity * delta
 
 	downward_speed = velocity.y
+
+func move_horizontally(delta) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
@@ -60,17 +65,20 @@ func handle_movement(delta):
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
 	move_and_slide()
+
+func handle_movement(delta) -> void:
+	move_vertically(delta)
+	move_horizontally(delta)
+	
+	detect_and_log_collisions()
+
+func detect_and_log_collisions() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().name == "Squirrel":
-			print("I collided with ", collision.get_collider().name)
+			#print("I collided with ", collision.get_collider().name)
 			hide()
 			emit_signal("player_died")
 
-# func _physics_process(delta):
 func _process(delta):
 	handle_movement(delta)
-	
-#func _on_body_entered(body):
-	#hide() # Owies we vanish on hit!
-	# hit.emit()

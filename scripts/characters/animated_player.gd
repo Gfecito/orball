@@ -1,14 +1,16 @@
-extends Camera2D
+extends AnimatedSprite2D
 
+var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	# var present_zoom = get_zoom()
-	# # set_zoom( present_zoom*2 )
 
 
-
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	var direction = Input.get_axis("move_left", "move_right")
+	if direction != 0:
+		scale.x = abs(scale.x) * direction
+	

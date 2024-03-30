@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://kl43cai7r6ss"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_58k0k"]
+[ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_blmot"]
+[ext_resource type="Script" path="res://scripts/characters/animated_player.gd" id="3_lr7ke"]
 [ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
-[ext_resource type="Script" path="res://scripts/animated_player.gd" id="4_bg6cw"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
 [ext_resource type="AudioStream" uid="uid://c5xcbqpjh8jfy" path="res://audio/Jump 1.1 Reverse.wav" id="6_y20vh"]
 [ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="7_pflkh"]
@@ -12,7 +12,7 @@ radius = 8.57143
 height = 20.0
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_58k0k")
+script = ExtResource("1_blmot")
 jump_velocity = -900.0
 
 [node name="animated_player" type="AnimatedSprite2D" parent="."]
@@ -20,7 +20,7 @@ position = Vector2(0, -17.1429)
 scale = Vector2(1, 1.012)
 sprite_frames = ExtResource("3_rmlqg")
 autoplay = "default"
-script = ExtResource("4_bg6cw")
+script = ExtResource("3_lr7ke")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -41,3 +41,6 @@ position = Vector2(-2.38419e-07, -21.4286)
 stream = ExtResource("7_pflkh")
 volume_db = 10.0
 bus = &"SFX"
+
+[connection signal="grounded" from="." to="." method="_on_grounded"]
+[connection signal="jump" from="." to="." method="_on_jump"]

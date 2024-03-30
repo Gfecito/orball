@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfyvpcm6htcys"]
+[gd_scene load_steps=9 format=3 uid="uid://dfyvpcm6htcys"]
 
 [ext_resource type="PackedScene" uid="uid://kl43cai7r6ss" path="res://scenes/player.tscn" id="1_23jjp"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_ta1dl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cw6hnyyhewvfm" path="res://scenes/map_sector.tscn" id="2_qc6k7"]
 [ext_resource type="AudioStream" uid="uid://dcupiu1yrhtc3" path="res://audio/background_music.wav" id="4_xtei2"]
 [ext_resource type="PackedScene" uid="uid://den0ci8bpbe2" path="res://scenes/background.tscn" id="7_8bh6s"]
+[ext_resource type="Script" path="res://scripts/signal_coordinator.gd" id="8_nno3w"]
 [ext_resource type="PackedScene" uid="uid://cfl62p6qgiqb8" path="res://scenes/squirrel_enemy.tscn" id="8_sj7mc"]
 
 [node name="World" type="Node2D"]
@@ -32,6 +33,12 @@ bus = &"Music"
 
 [node name="Background" parent="." instance=ExtResource("7_8bh6s")]
 
-[connection signal="pause" from="GUI" to="." method="_on_gui_pause"]
-[connection signal="reset" from="GUI" to="." method="_on_gui_reset"]
-[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
+[node name="SignalCoordinator" type="Node" parent="."]
+script = ExtResource("8_nno3w")
+
+[connection signal="pause" from="GUI" to="SignalCoordinator" method="_on_pause"]
+[connection signal="reset" from="GUI" to="SignalCoordinator" method="_on_reset"]
+[connection signal="player_died" from="Player" to="SignalCoordinator" method="_on_player_player_died"]
+[connection signal="pause" from="SignalCoordinator" to="." method="_on_pause"]
+[connection signal="player_died" from="SignalCoordinator" to="." method="_on_player_player_died"]
+[connection signal="reset" from="SignalCoordinator" to="." method="_on_reset"]
