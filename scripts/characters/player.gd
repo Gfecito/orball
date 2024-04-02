@@ -81,7 +81,7 @@ func eat(victim):
 	var camera = $"DynamicCamera"
 	# When this gets negative the camera flips!
 	# Lets multiply
-	camera.set_zoom(camera.get_zoom() - Vector2(0.1, 0.1))
+	camera.set_zoom(camera.get_zoom()*Vector2(0.9, 0.9))
 	apply_scale(Vector2(1.1,1.1))
 	victim.queue_free()
 
@@ -91,7 +91,7 @@ func shed(percentage: float):
 	$"Shed".play()
 	var to_keep = 1.0-(percentage/100)
 	var camera = $"DynamicCamera"
-	camera.set_zoom(camera.get_zoom() + Vector2(0.25, 0.25))
+	camera.set_zoom(camera.get_zoom() * Vector2(1.25, 1.25))
 	apply_scale(Vector2(to_keep,to_keep))
 
 

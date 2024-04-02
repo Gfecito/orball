@@ -18,6 +18,7 @@ var platform_build_complete = false
 func reset() -> void:
 	# Get tree seems to be able to flake sometimes.
 	# We should add some safeguards
+	get_tree().paused = false
 	if get_tree():
 		get_tree().reload_current_scene()
 

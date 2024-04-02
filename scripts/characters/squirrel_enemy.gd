@@ -5,12 +5,11 @@ extends CharacterBody2D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player
+var world
 var unleashed = false
 
 func _ready():
-	var world_node = get_tree().root.get_child(0)
-	player = world_node.get_node("Player")
-
+	world = get_tree().root.get_child(0)
 	# This can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE 
 	
@@ -19,6 +18,7 @@ func _ready():
 	unleashed = true
 
 func determine_direction() -> int:
+	player = world.get_node("Player")	
 	var player_position = player.position
 	var this_position = position
 	if abs(player_position.x - this_position.x) < 5:
