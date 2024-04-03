@@ -13,6 +13,9 @@ signal grounded
 const DOWNWARD_SPEED_THRESHOLD = 80
 const MAX_CONSECUTIVE_JUMPS = 3
 
+const MIN_ZOOM = Vector2(0.4,0.4)
+const MAX_ZOOM = Vector2(4,4)
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -81,7 +84,8 @@ func eat(victim):
 	var camera = $"DynamicCamera"
 	# When this gets negative the camera flips!
 	# Lets multiply
-	camera.set_zoom(camera.get_zoom()*Vector2(0.9, 0.9))
+	var new_zoom = clamp(camera.get_zoom()*Vector2(0.9, 0.9), MIN_ZOOM, MAX_ZOOM)
+	camera.set_zoom(new_zoom)
 	apply_scale(Vector2(1.1,1.1))
 	victim.queue_free()
 
@@ -91,7 +95,8 @@ func shed(percentage: float):
 	$"Shed".play()
 	var to_keep = 1.0-(percentage/100)
 	var camera = $"DynamicCamera"
-	camera.set_zoom(camera.get_zoom() * Vector2(1.25, 1.25))
+	var new_zoom = clamp(camera.get_zoom() * Vector2(1.25, 1.25), MIN_ZOOM, MAX_ZOOM)
+	camera.set_zoom(new_zoom)
 	apply_scale(Vector2(to_keep,to_keep))
 
 
