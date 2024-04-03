@@ -15,6 +15,8 @@ const MAX_CONSECUTIVE_JUMPS = 3
 
 const MIN_ZOOM = Vector2(0.4,0.4)
 const MAX_ZOOM = Vector2(4,4)
+const MIN_SCALE = Vector2(0.5,0.5)
+const MAX_SCALE = Vector2(5,5)
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -86,7 +88,8 @@ func eat(victim):
 	# Lets multiply
 	var new_zoom = clamp(camera.get_zoom()*Vector2(0.9, 0.9), MIN_ZOOM, MAX_ZOOM)
 	camera.set_zoom(new_zoom)
-	apply_scale(Vector2(1.1,1.1))
+	if scale < MAX_SCALE:
+		apply_scale(Vector2(1.1,1.1))
 	victim.queue_free()
 
 func shed(percentage: float):
@@ -97,7 +100,8 @@ func shed(percentage: float):
 	var camera = $"DynamicCamera"
 	var new_zoom = clamp(camera.get_zoom() * Vector2(1.25, 1.25), MIN_ZOOM, MAX_ZOOM)
 	camera.set_zoom(new_zoom)
-	apply_scale(Vector2(to_keep,to_keep))
+	if scale > MIN_SCALE:
+		apply_scale(Vector2(to_keep,to_keep))
 
 
 func detect_and_log_collisions() -> void:
