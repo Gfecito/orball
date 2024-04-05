@@ -1,16 +1,15 @@
 extends CharacterBody2D
 
-@export var movement_speed = 250.0
+@export var movement_speed = 220.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player
-var world
 var unleashed = false
 var turned = false
 
 func _ready():
-	world = get_tree().root.get_child(0)
+	player = get_tree().root.get_child(0).get_node("Player")	
 	# This can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE 
 	
@@ -19,15 +18,16 @@ func _ready():
 	unleashed = true
 
 func determine_direction() -> int:
-	player = world.get_node("Player")	
-	var player_position = player.position
-	var this_position = position
-	if abs(player_position.x - this_position.x) < 5:
+	var my_position = global_position
+	var player_position = player.global_position
+	
+	if abs(player_position.x - my_position.x) < 5:
 		return 0
-	if player_position.x > this_position.x:
+	if player_position.x > my_position.x:
 		return 1
-	else:
+	if player_position.x < my_position.x:	
 		return -1
+	return 0
 
 func handle_movement(_delta) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -38,16 +38,15 @@ func handle_movement(_delta) -> void:
 	
 	if direction:
 		velocity.x = direction * movement_speed
+		
 		# If not already looking in that direction
 		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
-		print("Direction sign, " + str(sign(direction)) + " turned? " + str(turned))
-		print("Scale sign, " + str(sign(scale.x)) + " turned? " + str(turned))
 		if should_turn:
 			# Turn around
 			turned = !turned
 			scale.x = abs(scale.x) * -1
 	else:
-		velocity.x = move_toward(velocity.x, 0, movement_speed)
+		velocity.x = 0
 	
 	move_and_slide()
 

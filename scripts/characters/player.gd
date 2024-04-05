@@ -69,8 +69,6 @@ func move_horizontally(delta) -> void:
 		velocity.x = direction * movement_speed
 		# If not already looking in that direction
 		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
-		print("Direction sign, " + str(sign(direction)) + " turned? " + str(turned))
-		print("Scale sign, " + str(sign(scale.x)) + " turned? " + str(turned))
 		if should_turn:
 			# Turn around
 			turned = !turned
