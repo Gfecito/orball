@@ -3,6 +3,8 @@ extends CharacterBody2D
 signal player_died
 signal jump
 signal grounded
+signal damaged
+signal grew
 
 @export var movement_speed = 300.0
 @export var jump_velocity = -1000.0
@@ -97,6 +99,7 @@ func eat(victim):
 	camera.set_zoom(new_zoom)
 	if scale < MAX_SCALE:
 		apply_scale(Vector2(1.1,1.1))
+		emit_signal("grew")
 	victim.queue_free()
 
 func shed(percentage: float):
@@ -109,7 +112,15 @@ func shed(percentage: float):
 	camera.set_zoom(new_zoom)
 	if scale > MIN_SCALE:
 		apply_scale(Vector2(to_keep,to_keep))
+		emit_signal("damaged")		
 
+func get_hurt():
+	if scale <= MIN_SCALE:
+		hide()		
+		emit_signal("player_died")
+	else:
+		shed(30)
+	
 
 func detect_and_log_collisions() -> void:
 	for i in get_slide_collision_count():
@@ -119,8 +130,7 @@ func detect_and_log_collisions() -> void:
 			if Input.is_action_pressed("eat"):
 				eat(collision.get_collider())
 			else:
-				hide()
-				emit_signal("player_died")
+				get_hurt()
 
 func _process(delta):
 	handle_movement(delta)

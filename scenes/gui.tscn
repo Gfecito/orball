@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhjt6knht4mta"]
+[gd_scene load_steps=6 format=3 uid="uid://bhjt6knht4mta"]
 
 [ext_resource type="PackedScene" uid="uid://di1a2ebv4shd4" path="res://scenes/volume_slider.tscn" id="1_0cc52"]
 [ext_resource type="Script" path="res://scripts/ui_and_ux/gui.gd" id="1_kxiau"]
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="2_cjxys"]
+[ext_resource type="Script" path="res://scripts/ui_and_ux/pause_menu.gd" id="2_oow0u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w416v"]
 font_size = 25
@@ -13,7 +15,21 @@ shadow_offset = Vector2(2, 4)
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_kxiau")
 
-[node name="Label" type="Label" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0, 0.968627, 0.270588, 1)
+self_modulate = Color(0, 0.968627, 0.270588, 1)
+offset_left = 1179.0
+offset_top = 4.0
+offset_right = 1599.0
+offset_bottom = 55.0
+allow_greater = true
+show_percentage = false
+script = ExtResource("2_cjxys")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("2_oow0u")
+
+[node name="Label" type="Label" parent="PauseMenu"]
 top_level = true
 layout_direction = 2
 offset_left = 405.0
@@ -25,7 +41,7 @@ label_settings = SubResource("LabelSettings_w416v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="PauseMenu"]
 top_level = true
 layout_direction = 2
 offset_left = 686.0
@@ -37,7 +53,7 @@ label_settings = SubResource("LabelSettings_w416v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="."]
+[node name="Label3" type="Label" parent="PauseMenu"]
 top_level = true
 layout_direction = 2
 anchors_preset = 6
@@ -56,7 +72,7 @@ label_settings = SubResource("LabelSettings_w416v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MasterVolumeContainer" type="HBoxContainer" parent="."]
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="PauseMenu"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -67,11 +83,11 @@ offset_bottom = -149.5
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="MasterVolumeSlider" parent="MasterVolumeContainer" instance=ExtResource("1_0cc52")]
+[node name="MasterVolumeSlider" parent="PauseMenu/MasterVolumeContainer" instance=ExtResource("1_0cc52")]
 layout_mode = 2
 bus_name = "Master"
 
-[node name="SFXVolumeContainer" type="HBoxContainer" parent="."]
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="PauseMenu"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -85,11 +101,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="SFXVolumeSlider" parent="SFXVolumeContainer" instance=ExtResource("1_0cc52")]
+[node name="SFXVolumeSlider" parent="PauseMenu/SFXVolumeContainer" instance=ExtResource("1_0cc52")]
 layout_mode = 2
 bus_name = "SFX"
 
-[node name="MusicVolumeContainer" type="HBoxContainer" parent="."]
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="PauseMenu"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -103,11 +119,11 @@ grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="MusicVolumeSlider" parent="MusicVolumeContainer" instance=ExtResource("1_0cc52")]
+[node name="MusicVolumeSlider" parent="PauseMenu/MusicVolumeContainer" instance=ExtResource("1_0cc52")]
 layout_mode = 2
 bus_name = "Music"
 
-[node name="Continue button" type="Button" parent="."]
+[node name="Continue button" type="Button" parent="PauseMenu"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -122,7 +138,7 @@ grow_vertical = 2
 pivot_offset = Vector2(2.08165e-12, 2.08165e-12)
 text = "CONTINUE"
 
-[node name="Reset button" type="Button" parent="."]
+[node name="Reset button" type="Button" parent="PauseMenu"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -136,6 +152,10 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "RESET"
 
-[connection signal="pause" from="." to="." method="_on_pause"]
-[connection signal="pressed" from="Continue button" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="Reset button" to="." method="_on_reset_button_pressed"]
+[connection signal="player_damaged" from="." to="HealthBar" method="_on_gui_player_damaged"]
+[connection signal="player_grew" from="." to="HealthBar" method="_on_gui_player_grew"]
+[connection signal="pause" from="PauseMenu" to="." method="_on_pause"]
+[connection signal="pause" from="PauseMenu" to="PauseMenu" method="_on_pause"]
+[connection signal="reset" from="PauseMenu" to="." method="_on_pause_menu_reset"]
+[connection signal="pressed" from="PauseMenu/Continue button" to="PauseMenu" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Reset button" to="PauseMenu" method="_on_reset_button_pressed"]

@@ -4,6 +4,8 @@ signal player_died
 
 signal pause
 signal reset
+signal player_damaged
+signal player_grew
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,3 +28,13 @@ func _on_pause():
 
 func _on_reset():
 	emit_signal("reset")
+
+
+func _on_player_damaged():
+	print("player damaged")	
+	emit_signal("player_damaged")
+
+
+func _on_player_grew():
+	print("player grew")
+	emit_signal("player_grew")

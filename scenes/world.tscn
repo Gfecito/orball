@@ -38,7 +38,11 @@ script = ExtResource("8_nno3w")
 
 [connection signal="pause" from="GUI" to="SignalCoordinator" method="_on_pause"]
 [connection signal="reset" from="GUI" to="SignalCoordinator" method="_on_reset"]
+[connection signal="damaged" from="Player" to="SignalCoordinator" method="_on_player_damaged"]
+[connection signal="grew" from="Player" to="SignalCoordinator" method="_on_player_grew"]
 [connection signal="player_died" from="Player" to="SignalCoordinator" method="_on_player_player_died"]
 [connection signal="pause" from="SignalCoordinator" to="." method="_on_pause"]
+[connection signal="player_damaged" from="SignalCoordinator" to="GUI" method="_on_signal_coordinator_player_damaged"]
 [connection signal="player_died" from="SignalCoordinator" to="." method="_on_player_player_died"]
+[connection signal="player_grew" from="SignalCoordinator" to="GUI" method="_on_signal_coordinator_player_grew"]
 [connection signal="reset" from="SignalCoordinator" to="." method="_on_reset"]
