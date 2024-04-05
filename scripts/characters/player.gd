@@ -24,6 +24,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var downward_speed = 0
 var jump_counter = MAX_CONSECUTIVE_JUMPS
+var turned = false
 
 func _ready():
 	# This can be paused.
@@ -66,6 +67,14 @@ func move_horizontally(delta) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * movement_speed
+		# If not already looking in that direction
+		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
+		print("Direction sign, " + str(sign(direction)) + " turned? " + str(turned))
+		print("Scale sign, " + str(sign(scale.x)) + " turned? " + str(turned))
+		if should_turn:
+			# Turn around
+			turned = !turned
+			scale.x = abs(scale.x) * -1
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	
@@ -80,7 +89,7 @@ func handle_movement(delta) -> void:
 	detect_and_log_collisions()
 
 func eat(victim):
-	print("I EAT RIGHT NOW")
+	#print("I EAT RIGHT NOW")
 	$"Eat".stop()
 	$"Eat".play()
 	var camera = $"DynamicCamera"
@@ -93,7 +102,7 @@ func eat(victim):
 	victim.queue_free()
 
 func shed(percentage: float):
-	print("I SHED RIGHT NOW")
+	#print("I SHED RIGHT NOW")
 	$"Shed".stop()
 	$"Shed".play()
 	var to_keep = 1.0-(percentage/100)

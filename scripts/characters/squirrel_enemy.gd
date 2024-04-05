@@ -7,6 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player
 var world
 var unleashed = false
+var turned = false
 
 func _ready():
 	world = get_tree().root.get_child(0)
@@ -37,6 +38,14 @@ func handle_movement(_delta) -> void:
 	
 	if direction:
 		velocity.x = direction * movement_speed
+		# If not already looking in that direction
+		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
+		print("Direction sign, " + str(sign(direction)) + " turned? " + str(turned))
+		print("Scale sign, " + str(sign(scale.x)) + " turned? " + str(turned))
+		if should_turn:
+			# Turn around
+			turned = !turned
+			scale.x = abs(scale.x) * -1
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 	

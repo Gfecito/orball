@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfl62p6qgiqb8"]
+[gd_scene load_steps=6 format=3 uid="uid://cfl62p6qgiqb8"]
 
 [ext_resource type="Script" path="res://scripts/characters/squirrel_enemy.gd" id="1_nakse"]
 [ext_resource type="SpriteFrames" uid="uid://bqmxchdv5nv47" path="res://aseprites/Squirrel idle.aseprite" id="2_dj4pe"]
-[ext_resource type="Script" path="res://scripts/characters/animated_player.gd" id="3_sdfil"]
 [ext_resource type="AudioStream" uid="uid://c5xcbqpjh8jfy" path="res://audio/Jump 1.1 Reverse.wav" id="5_h84xw"]
 [ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="6_ch6au"]
 
@@ -13,11 +12,10 @@ height = 37.1429
 [node name="Squirrel" type="CharacterBody2D"]
 script = ExtResource("1_nakse")
 
-[node name="AnimatedSquirrel" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1.42109e-14, -20)
 sprite_frames = ExtResource("2_dj4pe")
 autoplay = "default"
-script = ExtResource("3_sdfil")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.42857, -18.5714)
