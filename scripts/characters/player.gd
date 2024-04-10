@@ -6,31 +6,29 @@ signal grounded
 signal damaged
 signal grew
 
-@export var movement_speed = 300.0
-@export var jump_velocity = -1000.0
-
-
-# There must be a better way to pick this 
-# than just by feeling, but its fine
-const DOWNWARD_SPEED_THRESHOLD = 80
-const MAX_CONSECUTIVE_JUMPS = 3
-
-const MIN_ZOOM = Vector2(0.4,0.4)
-const MAX_ZOOM = Vector2(4,4)
-const MIN_SCALE = Vector2(0.5,0.5)
-const MAX_SCALE = Vector2(5,5)
-
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
+@export var downward_speed = 0
+@export var jump_counter = MAX_CONSECUTIVE_JUMPS
+@export var turned = false
+@export var movement_speed = 300.0
+@export var jump_velocity = -1000.0
+var health = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var camera
 
-var downward_speed = 0
-var jump_counter = MAX_CONSECUTIVE_JUMPS
-var turned = false
+
+
+# I CHOSE THESE ARBITRARILY
+const DOWNWARD_SPEED_THRESHOLD = 80
+const MAX_CONSECUTIVE_JUMPS = 3
+const MAX_HEALTH = 500
+
 
 func _ready():
-	# This can be paused.
-	process_mode = Node.PROCESS_MODE_PAUSABLE 
+	# Player can be paused.
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+	camera = $"DynamicCamera"
 
 func _on_jump() -> void:
 	if jump_counter > 0:
@@ -83,50 +81,49 @@ func move_horizontally(delta) -> void:
 func handle_movement(delta) -> void:
 	move_vertically(delta)
 	move_horizontally(delta)
-	if Input.is_action_just_pressed("shed"):
-		shed(20)
 	
-	detect_and_log_collisions()
+	detect_collisions()
 
 func eat(victim):
-	#print("I EAT RIGHT NOW")
-	$"Eat".stop()
-	$"Eat".play()
-	var camera = $"DynamicCamera"
-	# When this gets negative the camera flips!
-	# Lets multiply
-	var new_zoom = clamp(camera.get_zoom()*Vector2(0.9, 0.9), MIN_ZOOM, MAX_ZOOM)
-	camera.set_zoom(new_zoom)
-	if scale < MAX_SCALE:
-		apply_scale(Vector2(1.1,1.1))
+	if health < MAX_HEALTH:
+		$"Eat".stop()
+		$"Eat".play()
+		var new_zoom = camera.get_zoom() - Vector2(0.01, 0.01)
+		camera.set_zoom(new_zoom)
+		health = clamp(health + 10, 0, MAX_HEALTH)
+		print("ATE, HAS HEALTH: " + str(health) + ", ZOOM: " + str(camera.get_zoom()) + ", SCALE: " + str(scale))
+		var new_scale = scale * Vector2(1.01, 1.01)
+		set_scale(new_scale)
 		emit_signal("grew")
 	victim.queue_free()
 
 func shed(percentage: float):
-	#print("I SHED RIGHT NOW")
-	$"Shed".stop()
-	$"Shed".play()
-	var to_keep = 1.0-(percentage/100)
-	var camera = $"DynamicCamera"
-	var new_zoom = clamp(camera.get_zoom() * Vector2(1.25, 1.25), MIN_ZOOM, MAX_ZOOM)
-	camera.set_zoom(new_zoom)
-	if scale > MIN_SCALE:
-		apply_scale(Vector2(to_keep,to_keep))
-		emit_signal("damaged")		
+	var scaling = percentage / 1000
+	if health > 0:
+		$"Shed".stop()
+		$"Shed".play()
+		health = clamp(health - percentage, 0, MAX_HEALTH)
+		print("SHED, HAS HEALTH: " + str(health) + ", ZOOM: " + str(camera.get_zoom()) + ", SCALE: " + str(scale))
+		# Make smaller
+		var new_scale = scale * Vector2((1-scaling), (1-scaling))
+		set_scale(new_scale)
+		# Zoom in
+		var new_zoom = camera.get_zoom() + Vector2(scaling, scaling)
+		camera.set_zoom(new_zoom)
+		emit_signal("damaged")
 
 func get_hurt():
-	if scale <= MIN_SCALE:
-		hide()		
+	if health <= 0:
+		hide()
 		emit_signal("player_died")
 	else:
 		shed(30)
 	
 
-func detect_and_log_collisions() -> void:
+func detect_collisions() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().name == "Squirrel":
-			#print("I collided with ", collision.get_collider().name)
 			if Input.is_action_pressed("eat"):
 				eat(collision.get_collider())
 			else:

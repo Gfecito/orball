@@ -5,9 +5,9 @@ var player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_tree().root.get_child(0).get_node("Player")
-	set_min(player.MIN_SCALE.x/player.MAX_SCALE.x * 100)
-	set_max(100)
-	value = (player.scale.x / player.MAX_SCALE.x) * 100
+	set_min(0)
+	set_max(player.MAX_HEALTH)
+	value = player.health
 	print("MIN: " + str(min_value) + " MAX: " + str(max_value) + " value: " + str(value))
 
 
@@ -17,7 +17,9 @@ func _process(delta):
 
 
 func health():
-	return (player.scale.x / player.MAX_SCALE.x) * 100
+	var current_health = player.health
+	print("Current health: " + str(current_health))
+	return current_health
 
 
 func _on_gui_player_damaged():
