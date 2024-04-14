@@ -118,16 +118,22 @@ func get_hurt():
 		emit_signal("player_died")
 	else:
 		shed(30)
-	
+
+func collide_with(object):
+	match object.name:
+		"Squirrel":
+			if Input.is_action_pressed("eat"):
+				eat(object)
+			else:
+				get_hurt()
+		_:
+			# Handle other cases if needed
+			pass
 
 func detect_collisions() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		if collision.get_collider().name == "Squirrel":
-			if Input.is_action_pressed("eat"):
-				eat(collision.get_collider())
-			else:
-				get_hurt()
+		collide_with(collision.get_collider())
 
 func _process(delta):
 	handle_movement(delta)

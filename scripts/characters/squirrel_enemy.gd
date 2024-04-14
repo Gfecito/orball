@@ -49,6 +49,11 @@ func handle_movement(_delta) -> void:
 		velocity.x = 0
 	
 	move_and_slide()
+	if get_last_slide_collision() && get_last_slide_collision().get_collider():
+		var collider_name = get_last_slide_collision().get_collider().name
+		if collider_name == player.name:
+			player.collide_with(self)
+		
 
 func _process(delta):
 	if unleashed:
