@@ -20,6 +20,7 @@ enum Mutation {
 @export var current_mutation = Mutation.STANDARD
 var health = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var hurtable = true
 var camera
 
 
@@ -120,11 +121,27 @@ func shed(percentage: float):
 		emit_signal("damaged")
 
 func get_hurt():
+	if !hurtable:
+		return
+	untouchable()
 	if health <= 0:
 		hide()
 		emit_signal("player_died")
 	else:
 		shed(30)
+
+func untouchable():
+	modulate.a = 0.4
+	hurtable = false
+	$"OnHitInvincibilityTimer".start()
+
+func damageable():
+	modulate.a = 1
+	hurtable = true
+
+
+func _on_hit_invincibility_timer_timeout():
+	damageable()
 
 func collide_with(object):
 	match object.name:

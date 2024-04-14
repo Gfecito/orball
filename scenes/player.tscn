@@ -51,5 +51,9 @@ bus = &"SFX"
 [node name="Shed" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_w1j7s")
 
+[node name="OnHitInvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="grounded" from="." to="." method="_on_grounded"]
 [connection signal="jump" from="." to="." method="_on_jump"]
+[connection signal="timeout" from="OnHitInvincibilityTimer" to="." method="_on_hit_invincibility_timer_timeout"]
