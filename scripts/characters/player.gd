@@ -6,13 +6,18 @@ signal grounded
 signal damaged
 signal grew
 
+enum Mutation {
+	STANDARD,
+	SQUIRREL
+}
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var downward_speed = 0
-@export var jump_counter = MAX_CONSECUTIVE_JUMPS
+@export var jump_counter = MAX_STANDARD_JUMPS
 @export var turned = false
 @export var movement_speed = 300.0
 @export var jump_velocity = -1000.0
+@export var current_mutation = Mutation.STANDARD
 var health = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var camera
@@ -21,8 +26,10 @@ var camera
 
 # I CHOSE THESE ARBITRARILY
 const DOWNWARD_SPEED_THRESHOLD = 80
-const MAX_CONSECUTIVE_JUMPS = 3
+const MAX_STANDARD_JUMPS = 3
 const MAX_HEALTH = 500
+
+var max_consecutive_jumps = MAX_STANDARD_JUMPS
 
 
 func _ready():
@@ -38,7 +45,7 @@ func _on_jump() -> void:
 		jump_counter -= 1
 
 func _on_grounded() -> void:
-	jump_counter = MAX_CONSECUTIVE_JUMPS
+	jump_counter = max_consecutive_jumps
 
 func check_loud_landing(delta) -> void:
 	if downward_speed > gravity * delta * DOWNWARD_SPEED_THRESHOLD:
@@ -124,10 +131,22 @@ func collide_with(object):
 		"Squirrel":
 			if Input.is_action_pressed("eat"):
 				eat(object)
+				mutate(Mutation.SQUIRREL)
 			else:
 				get_hurt()
+				mutate(Mutation.STANDARD)
 		_:
 			# Handle other cases if needed
+			pass
+
+func mutate(variant: Mutation):
+	current_mutation = variant
+	match variant:
+		Mutation.SQUIRREL:
+			max_consecutive_jumps = MAX_STANDARD_JUMPS + 3
+		Mutation.STANDARD:
+			max_consecutive_jumps = MAX_STANDARD_JUMPS
+		_:
 			pass
 
 func detect_collisions() -> void:
