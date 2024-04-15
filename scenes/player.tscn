@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_blmot"]
 [ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
+[ext_resource type="AudioStream" uid="uid://vfevj1w3pxru" path="res://audio/land_2.1.wav" id="4_5taeh"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
 [ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://audio/Jump 2.mp3" id="6_sqm1o"]
-[ext_resource type="AudioStream" uid="uid://c5xcbqpjh8jfy" path="res://audio/Jump 1.1 Reverse.wav" id="6_y20vh"]
 [ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://audio/Jump 1.1.wav" id="7_pflkh"]
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://audio/Jump 3.mp3" id="8_w1j7s"]
 
@@ -32,7 +32,7 @@ zoom = Vector2(2, 2)
 
 [node name="Landing" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2.38419e-07, -21.4286)
-stream = ExtResource("6_y20vh")
+stream = ExtResource("4_5taeh")
 volume_db = 10.0
 bus = &"SFX"
 
