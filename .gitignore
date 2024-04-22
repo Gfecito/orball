@@ -1,9 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
-audio
-images
-exports
-export_presets.cfg
 .vscode/settings.json
-aseprites
-addons
+assets
+export_presets.cfg
