@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ub8ctqwgsev6"]
 
-[ext_resource type="Texture2D" uid="uid://m2146e1cgl4i" path="res://images/Forest tileset/Tile-set/Trunks/Trunk 05.png" id="1_dbmje"]
+[ext_resource type="Texture2D" uid="uid://m2146e1cgl4i" path="res://assets/images/Forest tileset/Tile-set/Trunks/Trunk 05.png" id="1_dbmje"]
 
 [node name="ForegroundSector" type="Sprite2D"]
 position = Vector2(-8.49998, -551.7)

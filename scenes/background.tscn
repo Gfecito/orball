@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://den0ci8bpbe2"]
 
 [ext_resource type="Script" path="res://scripts/background.gd" id="1_2fskt"]
-[ext_resource type="Texture2D" uid="uid://bpqfti867uhr" path="res://images/placeholder_background.jpg" id="1_fji84"]
-[ext_resource type="Texture2D" uid="uid://m2146e1cgl4i" path="res://images/Forest tileset/Tile-set/Trunks/Trunk 05.png" id="2_xuxg3"]
+[ext_resource type="Texture2D" uid="uid://bpqfti867uhr" path="res://assets/images/placeholder_background.jpg" id="1_fji84"]
+[ext_resource type="Texture2D" uid="uid://m2146e1cgl4i" path="res://assets/images/Forest tileset/Tile-set/Trunks/Trunk 05.png" id="2_xuxg3"]
 
 [node name="Background" type="ParallaxBackground"]
 follow_viewport_enabled = true
