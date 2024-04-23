@@ -75,6 +75,7 @@ func move_horizontally(delta) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * movement_speed
+		$AnimationPlayer.play("walk")
 		# If not already looking in that direction
 		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
 		if should_turn:

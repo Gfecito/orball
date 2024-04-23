@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=12 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_blmot"]
-[ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://assets/aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
+[ext_resource type="Texture2D" uid="uid://ddkrnqyadoqjl" path="res://assets/aseprites/Orball walk 1.png" id="3_rmlqg"]
 [ext_resource type="AudioStream" uid="uid://vfevj1w3pxru" path="res://assets/audio/land_2.1.wav" id="4_5taeh"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
 [ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://assets/audio/Jump 2.mp3" id="6_sqm1o"]
@@ -9,18 +9,55 @@
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://assets/audio/Jump 3.mp3" id="8_w1j7s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
-radius = 8.57143
+radius = 9.0
 height = 20.0
+
+[sub_resource type="Animation" id="Animation_pd67j"]
+resource_name = "walk"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrballWalk1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_jocn0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrballWalk1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cy3rr"]
+_data = {
+"RESET": SubResource("Animation_jocn0"),
+"walk": SubResource("Animation_pd67j")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_blmot")
 jump_velocity = -900.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -17.1429)
-scale = Vector2(1, 1.012)
-sprite_frames = ExtResource("3_rmlqg")
-autoplay = "default"
+[node name="OrballWalk1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -17)
+texture = ExtResource("3_rmlqg")
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -53,6 +90,11 @@ stream = ExtResource("8_w1j7s")
 
 [node name="OnHitInvincibilityTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cy3rr")
+}
 
 [connection signal="grounded" from="." to="." method="_on_grounded"]
 [connection signal="jump" from="." to="." method="_on_jump"]
