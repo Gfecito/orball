@@ -20,8 +20,12 @@ git checkout -b "YourName/QuickDescription"
 git commit -a -m "What I changed"
 ```
 5) Push:
+If its your first push on that branch:
 ```
 git push --set-upstream origin <name of your branch>
+```
+Else, simply:
+```
 git push
 ```
 And then on github do a PR to merge into main!
