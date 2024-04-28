@@ -1,14 +1,16 @@
 extends Node2D
 
 var ground_sector = preload("res://scenes/map_sector.tscn")
+var final_ground_sector = preload("res://scenes/map_sector_final.tscn")
 var platforms_sector = preload("res://scenes/platforms.tscn")
 
 const MAX_SECTORS = 3
-const MAX_PLATFORM_HEIGHT = 50
+const MAX_PLATFORM_HEIGHT = 3
 const SECTOR_WIDTH = 1150
 const SECTOR_HEIGHT = 600
 
 # Procedural generation progress trackers.
+var current_level = 1
 var current_sector = 0
 var current_platform = 0
 var current_platform_level = 1
@@ -26,7 +28,6 @@ func build_next_sector() -> void:
 	var x = SECTOR_WIDTH * current_sector
 	# Add symmetrically
 	add_sector(Vector2(x, 0))
-	add_sector(Vector2(-1 * x, 0))
 	current_sector += 1
 	if current_sector > MAX_SECTORS:
 		sector_build_complete = true
@@ -36,7 +37,6 @@ func build_next_platform() -> void:
 	var y = -1 * SECTOR_HEIGHT * current_platform_level
 	# Add symmetrically
 	add_platforms(Vector2(x, y))
-	add_platforms(Vector2(-1 * x, y))
 	if current_platform > MAX_SECTORS:
 		if current_platform_level > MAX_PLATFORM_HEIGHT:
 			platform_build_complete = true
@@ -48,12 +48,25 @@ func build_next_platform() -> void:
 
 # `position` already exists in Node2D
 func add_sector(_position: Vector2) -> void:
-	var instance = ground_sector.instantiate()
+	var instance
+	match current_level:
+		1:
+			if(current_sector == MAX_SECTORS): 
+				instance = final_ground_sector.instantiate()
+			else:
+				instance = ground_sector.instantiate()
+		var undefined_level:
+			print("Current level is not recognized: ", undefined_level)
 	add_child(instance)
 	instance.set_global_position(_position)
 
 func add_platforms(_position: Vector2) -> void:
-	var instance = platforms_sector.instantiate()
+	var instance
+	match current_level:
+		1:
+			instance = platforms_sector.instantiate()
+		var undefined_level:
+			print("Current level is not recognized: ", undefined_level)
 	add_child(instance)
 	instance.set_global_position(_position)
 
@@ -61,13 +74,15 @@ func _ready():
 	# Without this, pausing will freeze the game.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func build_level():
 	if !sector_build_complete:
 		build_next_sector()
 	if !platform_build_complete:
 		build_next_platform()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	build_level()
 
 
 

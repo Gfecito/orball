@@ -17,7 +17,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="GUI" parent="." instance=ExtResource("2_gidta")]
 
-[node name="Player" parent="." instance=ExtResource("1_23jjp")]
+[node name="Player" parent="." groups=["Persist"] instance=ExtResource("1_23jjp")]
 position = Vector2(2.08165e-12, 2.08165e-12)
 jump_velocity = -1000.0
 

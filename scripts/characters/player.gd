@@ -139,6 +139,23 @@ func damageable():
 	modulate.a = 1
 	hurtable = true
 
+func save():
+	var save_dict = {
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x, # Vector2 is not supported by JSON
+		"pos_y" : position.y,
+		"downward_speed" : downward_speed,
+		"jump_counter" : jump_counter,
+		"turned" : turned,
+		"movement_speed" : movement_speed,
+		"jump_velocity" : jump_velocity,
+		"current_mutation" : current_mutation,
+		"health" : health,
+		"gravity" : gravity
+	}
+	return save_dict
+	
 
 func _on_hit_invincibility_timer_timeout():
 	damageable()
