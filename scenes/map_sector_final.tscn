@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="2_8ped1"]
 [ext_resource type="Texture2D" uid="uid://d1gqu5uyffcln" path="res://assets/images/kirby.png" id="2_ah5ta"]
 
-[node name="MapSector" type="Node2D"]
+[node name="MapSectorFinal" type="Node2D"]
 
 [node name="Floor" parent="." instance=ExtResource("1_eirau")]
 position = Vector2(13, 598)
