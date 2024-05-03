@@ -4,6 +4,9 @@ signal player_died
 
 signal pause
 signal reset
+signal save
+signal load
+
 signal player_damaged
 signal player_grew
 
@@ -38,3 +41,11 @@ func _on_player_damaged():
 func _on_player_grew():
 	print("player grew")
 	emit_signal("player_grew")
+
+
+func _on_gui_save():
+	emit_signal("save")
+
+
+func _on_gui_load():
+	emit_signal("load")

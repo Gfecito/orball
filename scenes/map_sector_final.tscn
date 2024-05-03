@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxrk8akufbokv"]
+
+[ext_resource type="PackedScene" uid="uid://bfb24nm6ufxi8" path="res://scenes/floor.tscn" id="1_eirau"]
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="2_8ped1"]
+[ext_resource type="Texture2D" uid="uid://d1gqu5uyffcln" path="res://assets/images/kirby.png" id="2_ah5ta"]
+
+[node name="MapSectorFinal" type="Node2D"]
+
+[node name="Floor" parent="." instance=ExtResource("1_eirau")]
+position = Vector2(13, 598)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_8ped1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(-1, -300)
+scale = Vector2(30, 30)
+polygon = PackedVector2Array(-10, 10, -10, 0, 0, -10, 10, 0, 10, 10)
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(-2.50001, -154)
+scale = Vector2(1.31042, 0.65)
+texture = ExtResource("2_ah5ta")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
