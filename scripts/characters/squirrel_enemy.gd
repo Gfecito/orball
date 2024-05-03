@@ -21,9 +21,9 @@ func _ready():
 
 func determine_direction() -> int:
 	var my_position = global_position
-	if !is_instance_valid(player):
+	if !is_instance_valid(player) || !player:
 		fetch_player()
-		print(player)
+		#print(player)
 		return 0
 	var player_position = player.global_position
 	
@@ -36,9 +36,9 @@ func determine_direction() -> int:
 	return 0
 
 func handle_movement(_delta) -> void:
-	if !is_instance_valid(player):
+	if !is_instance_valid(player) || !player:
 		fetch_player()
-		print(player)
+		#print(player)
 		return
 	# Get the input direction and handle the movement/deceleration.
 	var direction = determine_direction()

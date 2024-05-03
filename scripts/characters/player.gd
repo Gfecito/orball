@@ -146,6 +146,7 @@ func save():
 		"pos_x" : position.x, # Vector2 is not supported by JSON
 		"pos_y" : position.y,
 		"downward_speed" : downward_speed,
+		"name" : name,
 		"jump_counter" : jump_counter,
 		"turned" : turned,
 		"movement_speed" : movement_speed,

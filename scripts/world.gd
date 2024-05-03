@@ -86,14 +86,18 @@ func build_level():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
-	#build_level()
+	if not get_tree().root.get_child(0).has_node("Player") and get_tree().root.get_child(0).has_node("Player2"):
+		var player2_node = get_tree().root.get_child(0).get_node("Player2")
+		player2_node.name = "Player"
+		print("Renamed Player2 to Player")
+	build_level()
 
 func save():
 	print("SAVING...")
 	var save_game = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	for node in save_nodes:
+		print("Saving node: ", node.name)
 		# Check the node is an instanced scene so it can be instanced again during load.
 		if node.scene_file_path.is_empty():
 			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
@@ -155,6 +159,10 @@ func load_data():
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
+		new_object.add_to_group("Persist")
+		print("Loaded node: ", new_object.name)
+	print(get_tree().root.get_child(0).get_node("Player").name)
+
 
 
 
