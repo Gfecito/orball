@@ -8,8 +8,10 @@ var player
 var unleashed = false
 var turned = false
 
+func fetch_player():
+	player = get_tree().root.get_child(0).get_node("Player")
+
 func _ready():
-	player = get_tree().root.get_child(0).get_node("Player")	
 	# This can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE 
 	
@@ -19,6 +21,10 @@ func _ready():
 
 func determine_direction() -> int:
 	var my_position = global_position
+	if !is_instance_valid(player):
+		fetch_player()
+		print(player)
+		return 0
 	var player_position = player.global_position
 	
 	if abs(player_position.x - my_position.x) < 5:
@@ -30,6 +36,10 @@ func determine_direction() -> int:
 	return 0
 
 func handle_movement(_delta) -> void:
+	if !is_instance_valid(player):
+		fetch_player()
+		print(player)
+		return
 	# Get the input direction and handle the movement/deceleration.
 	var direction = determine_direction()
 

@@ -86,7 +86,8 @@ func build_level():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	build_level()
+	pass
+	#build_level()
 
 func save():
 	print("SAVING...")
@@ -123,8 +124,8 @@ func load_data():
 	# project, so take care with this step.
 	# For our example, we will accomplish this by deleting saveable objects.
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	#for i in save_nodes:
-		#i.queue_free()
+	for i in save_nodes:
+		i.queue_free()
 
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
@@ -147,9 +148,7 @@ func load_data():
 		# Firstly, we need to create the object and add it to the tree and set its position.
 		var new_object = load(node_data["filename"]).instantiate()
 		get_node(node_data["parent"]).add_child(new_object)
-		# TODO(SANTI): THIS IS TRIVIALLY WRONG THE +20 IS IN USE FOR TESTING BUT
-		# SHOULD BE REMOVED.
-		new_object.position = Vector2(node_data["pos_x"]+20, node_data["pos_y"]+20)
+		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 
 		# Now we set the remaining variables.
 		for i in node_data.keys():
@@ -160,7 +159,6 @@ func load_data():
 
 
 func _on_pause() -> void:
-	load_data()
 	get_tree().paused = !get_tree().paused
 
 

@@ -129,10 +129,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -184.0
-offset_top = 150.0
-offset_right = 184.0
-offset_bottom = 256.0
+offset_left = -450.0
+offset_top = 130.0
+offset_right = -82.0
+offset_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(2.08165e-12, 2.08165e-12)
@@ -144,13 +144,42 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -160.0
-offset_right = 184.0
-offset_bottom = -54.0
+offset_left = -450.0
+offset_top = -175.0
+offset_right = -82.0
+offset_bottom = -69.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "RESET"
+
+[node name="Save button" type="Button" parent="PauseMenu"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -320.0
+offset_right = 518.0
+offset_bottom = -214.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "SAVE"
+
+[node name="Load button" type="Button" parent="PauseMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = 275.0
+offset_right = 518.0
+offset_bottom = 381.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(2.08165e-12, 2.08165e-12)
+text = "LOAD"
 
 [connection signal="player_damaged" from="." to="HealthBar" method="_on_gui_player_damaged"]
 [connection signal="player_grew" from="." to="HealthBar" method="_on_gui_player_grew"]
@@ -159,3 +188,5 @@ text = "RESET"
 [connection signal="reset" from="PauseMenu" to="." method="_on_pause_menu_reset"]
 [connection signal="pressed" from="PauseMenu/Continue button" to="PauseMenu" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseMenu/Reset button" to="PauseMenu" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Save button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Load button" to="." method="_on_load_button_pressed"]
