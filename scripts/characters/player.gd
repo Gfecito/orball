@@ -38,7 +38,6 @@ func _ready():
 	# Player can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	camera = $"DynamicCamera"
-	$SoundTimer.timeout.connect(playSoundAgain)
 
 func playSoundAgain():
 	sound_playing = false  # Reset the sound_playing flag
@@ -86,6 +85,7 @@ func move_horizontally(delta) -> void:
 			# Start the timer to wait for the sound to finish
 			$SoundTimer.start()
 		velocity.x = direction * movement_speed
+		$AnimationPlayer.play("walk")
 		# If not already looking in that direction
 		var should_turn = (sign(direction) == -1) && !turned || (sign(direction) == 1) && turned
 		if should_turn:
