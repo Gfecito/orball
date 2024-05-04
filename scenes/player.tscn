@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://kl43cai7r6ss"]
+[gd_scene load_steps=10 format=3 uid="uid://kl43cai7r6ss"]
 
 [ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_blmot"]
 [ext_resource type="SpriteFrames" uid="uid://div1c1l7yhpvo" path="res://assets/aseprites/Orball walk 1.aseprite" id="3_rmlqg"]
 [ext_resource type="AudioStream" uid="uid://vfevj1w3pxru" path="res://assets/audio/land_2.1.wav" id="4_5taeh"]
 [ext_resource type="PackedScene" uid="uid://dvqvcx8k5kyvi" path="res://scenes/dynamic_camera.tscn" id="4_eosea"]
-[ext_resource type="AudioStream" uid="uid://d2jh1okpv4cer" path="res://assets/audio/Jump 2.mp3" id="6_sqm1o"]
+[ext_resource type="AudioStream" uid="uid://d0xsk0wieqd1b" path="res://assets/audio/orball_jump_2.0.wav" id="5_o236x"]
 [ext_resource type="AudioStream" uid="uid://dluylfo06ec7a" path="res://assets/audio/Jump 1.1.wav" id="7_pflkh"]
+[ext_resource type="AudioStream" uid="uid://22do1n5th00q" path="res://assets/audio/orball_sliding_1.0.wav" id="8_v035r"]
 [ext_resource type="AudioStream" uid="uid://5w2csrrbhnoa" path="res://assets/audio/Jump 3.mp3" id="8_w1j7s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ojyc"]
@@ -38,22 +39,32 @@ bus = &"SFX"
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2.38419e-07, -21.4286)
-stream = ExtResource("6_sqm1o")
+stream = ExtResource("5_o236x")
 volume_db = 3.308
 bus = &"SFX"
 
 [node name="Eat" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2.38419e-07, -21.4286)
 stream = ExtResource("7_pflkh")
-volume_db = 10.0
+volume_db = 2.0
 bus = &"SFX"
 
 [node name="Shed" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_w1j7s")
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-4.76838e-07, -42.8572)
+stream = ExtResource("8_v035r")
+volume_db = 5.0
+bus = &"SFX"
+
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="OnHitInvincibilityTimer" type="Timer" parent="."]
 wait_time = 0.5
 
 [connection signal="grounded" from="." to="." method="_on_grounded"]
 [connection signal="jump" from="." to="." method="_on_jump"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_hit_invincibility_timer_timeout"]
 [connection signal="timeout" from="OnHitInvincibilityTimer" to="." method="_on_hit_invincibility_timer_timeout"]
