@@ -22,6 +22,7 @@ var health = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hurtable = true
 var camera
+var sound_playing = false
 
 
 
@@ -37,6 +38,10 @@ func _ready():
 	# Player can be paused.
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	camera = $"DynamicCamera"
+
+func playSoundAgain():
+	sound_playing = false  # Reset the sound_playing flag
+	$"Walk".stop()
 
 func _on_jump() -> void:
 	if jump_counter > 0:
@@ -74,6 +79,11 @@ func move_horizontally(delta) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
+		if !sound_playing:  # Check if sound is not already playing
+			$"Walk".play()
+			sound_playing = true
+			# Start the timer to wait for the sound to finish
+			$SoundTimer.start()
 		velocity.x = direction * movement_speed
 		$AnimationPlayer.play("walk")
 		# If not already looking in that direction
